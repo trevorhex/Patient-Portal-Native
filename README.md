@@ -1,3 +1,3 @@
 # Patient Portal Native
 
-Exploring React Nataive and Expo 54
+Exploring React Native and Expo 54
