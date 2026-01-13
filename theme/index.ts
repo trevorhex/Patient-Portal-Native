@@ -10,7 +10,7 @@ export default {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'stretch',
-      padding: 8,
+      padding: spacing.small,
       backgroundColor: colors.backgroundDark
     },
     title: {

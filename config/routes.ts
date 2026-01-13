@@ -3,13 +3,23 @@ interface Routes {
   dashboard: string
   profile: {
     base: string
+    wizard: string
+  }
+  issues: {
+    base: string
+    new: string
   }
 }
 
 export const ROUTES: Routes = {
   auth: '/auth',
-  dashboard: '/dashboard',
+  dashboard: '/',
   profile: {
-    base: '/profile'
+    base: '/profile',
+    wizard: '/profileWizard'
+  },
+  issues: {
+    base: '/issues',
+    new: '/newIssue'
   }
 }

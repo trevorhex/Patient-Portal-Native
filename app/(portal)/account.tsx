@@ -2,11 +2,11 @@ import { StatusBar } from 'expo-status-bar'
 import { View, Text, StyleSheet } from 'react-native'
 import theme from '@/theme'
 
-export default function ProfileScreen() {
+export default function AccountScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>This is the Profile screen</Text>
-      <StatusBar style="inverted" />
+      <Text style={styles.text}>Account</Text>
+      <StatusBar style="light" />
     </View>
   )
 }
