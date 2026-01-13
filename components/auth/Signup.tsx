@@ -9,13 +9,14 @@ export interface LoginProps {
 }
 
 export const Signup = ({ onAuthSuccess }: LoginProps) => {
-  const [{ email, password, passwordConfirm, isPending }, setFormState] = useState({
+  const [{ email, password, passwordConfirm, isPending, focusedInput }, setFormState] = useState({
     email: '',
     password: '',
     passwordConfirm: '',
-    isPending: false
+    isPending: false,
+    focusedInput: null as null | 'email' | 'password' | 'passwordConfirm'
   })
-  const setState = (key: string, value: string | boolean) => setFormState(state => ({ ...state, [key]: value }))
+  const setState = (key: string, value: string | boolean | null) => setFormState(state => ({ ...state, [key]: value }))
 
   const handleSignup = async () => {
     if (!email || !password || !passwordConfirm) {
@@ -56,25 +57,34 @@ export const Signup = ({ onAuthSuccess }: LoginProps) => {
       <Text style={styles.title}>Create a new account</Text>
       <View style={styles.form}>
         <TextInput
-          style={theme.input}
+          style={[theme.input, focusedInput === 'email' && theme.focusedInput]}
+          placeholderTextColor={theme.colors.gray}
           placeholder="Email"
           value={email}
           onChangeText={val => setState('email', val)}
+          onFocus={() => setState('focusedInput', 'email')}
+          onBlur={() => setState('focusedInput', null)}
           keyboardType="email-address"
           autoCapitalize="none"
         />
         <TextInput
-          style={theme.input}
+          style={[theme.input, focusedInput === 'password' && theme.focusedInput]}
+          placeholderTextColor={theme.colors.gray}
           placeholder="Password"
           value={password}
           onChangeText={val => setState('password', val)}
+          onFocus={() => setState('focusedInput', 'password')}
+          onBlur={() => setState('focusedInput', null)}
           secureTextEntry
         />
         <TextInput
-          style={theme.input}
+          style={[theme.input, focusedInput === 'passwordConfirm' && theme.focusedInput]}
+          placeholderTextColor={theme.colors.gray}
           placeholder="Confirm Password"
           value={password}
           onChangeText={val => setState('passwordConfirm', val)}
+          onFocus={() => setState('focusedInput', 'passwordConfirm')}
+          onBlur={() => setState('focusedInput', null)}
           secureTextEntry
         />
         <Button

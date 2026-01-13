@@ -11,7 +11,7 @@ export default function AuthScreen() {
     <View style={theme.container}>
       <Text style={styles.title}>Patient Portal</Text>
       {isLogin ? <Login /> : <Signup />}
-      <View style={styles.text}>
+      <View style={styles.card}>
         <Text style={{ color: theme.colors.text }}>
           {isLogin ? "Don't have an account? " : 'Already have an account? '}
         </Text>
@@ -30,14 +30,15 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.xlarge,
     marginBottom: theme.spacing.small
   },
-  text: {
+  card: {
+    ...theme.card,
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: theme.spacing.medium,
     gap: 4
   },
   link: {
-    color: theme.colors.primary,
+    color: theme.colors.text,
     fontWeight: 'bold'
   }
 })

@@ -13,14 +13,14 @@ export default function DashboardLayout() {
       screenOptions={{
         tabBarActiveTintColor: theme.colors.secondary,
         tabBarStyle: {
-          backgroundColor: theme.colors.backgroundLight,
-          borderTopColor: theme.colors.gray,
+          backgroundColor: theme.colors.background,
+          borderTopColor: theme.colors.borderDark,
           borderTopWidth: 1,
           paddingTop: 12,
         },
         headerStyle: {
-          backgroundColor: theme.colors.backgroundLight,
-          borderBottomColor: theme.colors.gray,
+          backgroundColor: theme.colors.background,
+          borderBottomColor: theme.colors.borderDark,
           borderBottomWidth: 1
         },
         headerTitleStyle: {

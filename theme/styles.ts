@@ -1,11 +1,15 @@
 export const colors = {
-  primary: '#8328f9',
-  secondary: '#31de74',
-  background: '#121212',
-  backgroundLight: '#18181b',
+  primary: '#9810fa', // 600
+  secondary: '#05df72', // 400
+  grayLight: '#9f9fa9', // 400
+  gray: '#71717b', // 500
+  border: '#52525c', // 600
+  borderDark: '#3f3f47', // 700
+  backgroundLight: '#27272a', // 800
+  background: '#18181b', // 900
+  backgroundDark: '#121212',
   text: '#fff',
-  delete: '#ff3b30',
-  gray: '#3e3f46'
+  delete: '#ff3b30'
 }
 
 export const fontSizes = {
