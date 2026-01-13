@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import theme from '@/theme'
 
-export default function DashboardScreen() {
+export default function ProfileScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Dashboard</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.text}>Patient Profile</Text>
+      <StatusBar style="light" />
     </View>
   )
 }

@@ -19,7 +19,7 @@ export default function AuthScreen() {
           <Text style={styles.link}>{isLogin ? 'Sign Up' : 'Log In'}</Text>
         </TouchableOpacity>
       </View>
-      <StatusBar style="inverted" />
+      <StatusBar style="light" />
     </View>
   )
 }
