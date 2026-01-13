@@ -11,12 +11,13 @@ export interface LoginProps {
 
 export const Login = ({ onAuthSuccess }: LoginProps) => {
   // const authToken = useUserStore(state => state.authToken)
-  const [{ email, password, isPending }, setFormState] = useState({
+  const [{ email, password, isPending, focusedInput }, setFormState] = useState({
     email: '',
     password: '',
-    isPending: false
+    isPending: false,
+    focusedInput: null as null | 'email' | 'password'
   })
-  const setState = (key: string, value: string | boolean) => setFormState(state => ({ ...state, [key]: value }))
+  const setState = (key: string, value: string | boolean | null) => setFormState(state => ({ ...state, [key]: value }))
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -52,16 +53,22 @@ export const Login = ({ onAuthSuccess }: LoginProps) => {
       <Text style={styles.title}>Log in to your account</Text>
       <View style={styles.form}>
         <TextInput
-          style={theme.input}
+          style={[theme.input, focusedInput === 'email' && theme.focusedInput]}
+          placeholderTextColor={theme.colors.gray}
           placeholder="Email"
           value={email}
           onChangeText={val => setState('email', val)}
+          onFocus={() => setState('focusedInput', 'email')}
+          onBlur={() => setState('focusedInput', null)}
           keyboardType="email-address"
           autoCapitalize="none"
         />
         <TextInput
-          style={theme.input}
+          style={[theme.input, focusedInput === 'password' && theme.focusedInput]}
+          placeholderTextColor={theme.colors.gray}
           placeholder="Password"
+          onFocus={() => setState('focusedInput', 'password')}
+          onBlur={() => setState('focusedInput', null)}
           value={password}
           onChangeText={val => setState('password', val)}
           secureTextEntry

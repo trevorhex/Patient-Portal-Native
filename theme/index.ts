@@ -11,7 +11,7 @@ export default {
       justifyContent: 'center',
       alignItems: 'stretch',
       padding: 8,
-      backgroundColor: colors.background
+      backgroundColor: colors.backgroundDark
     },
     title: {
       fontSize: fontSizes.large,
@@ -21,19 +21,25 @@ export default {
     },
     input: {
       height: 50,
-      borderColor: colors.gray,
+      borderColor: colors.border,
       borderWidth: 1,
       borderRadius: 6,
       paddingHorizontal: spacing.small,
       marginBottom: spacing.small,
       color: colors.text,
+      fontSize: fontSizes.medium,
       backgroundColor: colors.backgroundLight
+    },
+    focusedInput: {
+      borderColor: colors.secondary,
+      borderWidth: 2
     },
     button: {
       backgroundColor: colors.primary,
-      padding: 15,
+      height: 50,
       borderRadius: 6,
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     buttonDisabled: {
       backgroundColor: colors.gray
@@ -44,6 +50,13 @@ export default {
       textTransform: 'uppercase',
       letterSpacing: 1,
       fontSize: fontSizes.small
+    },
+    card: {
+      backgroundColor: colors.background,
+      borderWidth: 1,
+      borderColor: colors.borderDark,
+      borderRadius: 8,
+      padding: spacing.small
     }
   })
 }
