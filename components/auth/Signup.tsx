@@ -1,7 +1,9 @@
+import { router } from 'expo-router'
 import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'  
 import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { useUserStore } from '@/stores/user'
+import { ROUTES } from '@/config/routes'
 import theme from '@/theme'
 
 export interface LoginProps {
@@ -9,7 +11,7 @@ export interface LoginProps {
 }
 
 export const Signup = ({ onAuthSuccess }: LoginProps) => {
-  const logIn = useUserStore(state => state.logIn)
+  const setAuthToken = useUserStore(state => state.setAuthToken)
   const [{ email, password, passwordConfirm, isPending, focusedInput }, setFormState] = useState({
     email: '',
     password: '',
@@ -18,7 +20,11 @@ export const Signup = ({ onAuthSuccess }: LoginProps) => {
     focusedInput: null as null | 'email' | 'password' | 'passwordConfirm'
   })
   const setState = (key: string, value: string | boolean | null) => setFormState(state => ({ ...state, [key]: value }))
-
+  const logIn = (token: string) => {
+    setAuthToken(token)
+    router.replace(ROUTES.dashboard)
+  }
+  
   const handleSignup = async () => {
     if (!email || !password || !passwordConfirm) {
       Alert.alert('Error', 'Please fill in all fields')
