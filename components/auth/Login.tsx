@@ -1,7 +1,9 @@
-import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'  
+import { router } from 'expo-router'
+import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'
 import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { useUserStore } from '@/stores/user'
+import { ROUTES } from '@/config/routes'
 import theme from '@/theme'
 
 export interface LoginProps {
@@ -9,7 +11,7 @@ export interface LoginProps {
 }
 
 export const Login = ({ onAuthSuccess }: LoginProps) => {
-  const logIn = useUserStore(state => state.logIn)
+  const setAuthToken = useUserStore(state => state.setAuthToken)
   const [{ email, password, isPending, focusedInput }, setFormState] = useState({
     email: '',
     password: '',
@@ -17,6 +19,10 @@ export const Login = ({ onAuthSuccess }: LoginProps) => {
     focusedInput: null as null | 'email' | 'password'
   })
   const setState = (key: string, value: string | boolean | null) => setFormState(state => ({ ...state, [key]: value }))
+  const logIn = (token: string) => {
+    setAuthToken(token)
+    router.replace(ROUTES.dashboard)
+  }
 
   const handleLogin = async () => {
     if (!email || !password) {

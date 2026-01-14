@@ -1,4 +1,5 @@
 import { Redirect, Tabs, router } from 'expo-router'
+import { Alert } from 'react-native'
 import { useShallow } from 'zustand/react/shallow'
 import { Home, ScanHeart, List, Settings, LogOut, PlusIcon } from 'lucide-react-native'
 import theme from '@/theme'
@@ -7,11 +8,18 @@ import { useUserStore } from '@/stores/user'
 import { IconButton } from '@/components/IconButton'
 
 export default function PortalLayout() {
-  const { authToken, logOut } = useUserStore(useShallow(store => ({
+  const { authToken, setAuthToken } = useUserStore(useShallow(store => ({
     authToken: store.authToken,
-    logOut: store.logOut
+    setAuthToken: store.setAuthToken
   })))
   if (!authToken) return <Redirect href={ROUTES.auth} />
+
+  const handleLogout = () => {
+    Alert.alert('Log Out', 'Are you sure you want to log out?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Log Out', style: 'destructive', onPress: () => setAuthToken(null) }
+    ])
+  }
 
   return (
     <Tabs
@@ -62,7 +70,7 @@ export default function PortalLayout() {
         title: 'Account',
         tabBarIcon: (props) => <Settings {...props} />,
         headerRight: () => <IconButton
-          onPress={logOut}
+          onPress={handleLogout}
           accessibilityLabel="Log Out"
           Icon={LogOut}
         />
