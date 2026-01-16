@@ -2,61 +2,49 @@ import { router } from 'expo-router'
 import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'  
 import { useState } from 'react'
 import { Button } from '@/components/Button'
-import { useUserStore } from '@/stores/user'
+import { useSignup } from '@/services/session'
 import { ROUTES } from '@/config/routes'
 import theme from '@/theme'
 
-export interface LoginProps {
-  onAuthSuccess?: () => void
-}
+type StateValue = string | null | Record<string, string[]>
 
-export const Signup = ({ onAuthSuccess }: LoginProps) => {
-  const setAuthToken = useUserStore(state => state.setAuthToken)
-  const [{ email, password, passwordConfirm, isPending, focusedInput }, setFormState] = useState({
+export const Signup = () => {
+  const [{ email, password, passwordConfirm, focusedInput, errors }, setFormState] = useState({
     email: '',
     password: '',
     passwordConfirm: '',
-    isPending: false,
-    focusedInput: null as null | 'email' | 'password' | 'passwordConfirm'
+    focusedInput: null as null | 'email' | 'password' | 'passwordConfirm',
+    errors: null as null | Record<string, string[]>
   })
-  const setState = (key: string, value: string | boolean | null) => setFormState(state => ({ ...state, [key]: value }))
-  const logIn = (token: string) => {
-    setAuthToken(token)
-    router.replace(ROUTES.dashboard)
-  }
-  
+  const setState = (key: string, value: StateValue) => setFormState(state => ({ ...state, [key]: value }))
+  const signupMutation = useSignup()
+
   const handleSignup = async () => {
+    setState('errors', null)
+
     if (!email || !password || !passwordConfirm) {
       Alert.alert('Error', 'Please fill in all fields')
       return
     }
 
     if (password !== passwordConfirm) {
-      Alert.alert('Error', 'Passwords do not match')
+      setState('errors', {
+        password: ['Passwords do not match'],
+        passwordConfirm: ['Passwords do not match']
+      })
       return
     }
 
-    setState('isPending', true)
     try {
-      const response = await fetch('', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      })
+      const result = await signupMutation.mutateAsync({ email, password })
       
-      const data = await response.json()
-      
-      if (response.ok && data.token) {
-        logIn(data.token)
-        onAuthSuccess?.()
+      if (result.success) {
+        router.replace(ROUTES.dashboard)
       } else {
-        Alert.alert('Error', 'Invalid credentials')
+        result.errors && setState('errors', result.errors)
       }
     } catch {
-      // Alert.alert('Error', 'Login failed')
-      logIn('token-for-testing')
-    } finally {
-      setState('isPending', false)
+      Alert.alert('Error', 'Signup failed')
     }
   }
 
@@ -64,8 +52,19 @@ export const Signup = ({ onAuthSuccess }: LoginProps) => {
     <View>
       <Text style={styles.title}>Create a new account</Text>
       <View style={styles.form}>
+        {!!errors && (
+          <View style={styles.error}>
+            {[...new Set(Object.values(errors).map(msgs => msgs[0]))].map((message, index) => (
+              <Text key={index} style={{ color: theme.colors.error }}>{message}</Text>
+            ))}
+          </View>
+        )}
         <TextInput
-          style={[theme.input, focusedInput === 'email' && theme.focusedInput]}
+          style={[
+            theme.input,
+            focusedInput === 'email' && theme.focusedInput,
+            errors?.email && theme.inputError
+          ]}
           placeholderTextColor={theme.colors.gray}
           placeholder="Email"
           value={email}
@@ -76,7 +75,11 @@ export const Signup = ({ onAuthSuccess }: LoginProps) => {
           autoCapitalize="none"
         />
         <TextInput
-          style={[theme.input, focusedInput === 'password' && theme.focusedInput]}
+          style={[
+            theme.input,
+            focusedInput === 'password' && theme.focusedInput,
+            errors?.password && theme.inputError
+          ]}
           placeholderTextColor={theme.colors.gray}
           placeholder="Password"
           value={password}
@@ -86,18 +89,23 @@ export const Signup = ({ onAuthSuccess }: LoginProps) => {
           secureTextEntry
         />
         <TextInput
-          style={[theme.input, focusedInput === 'passwordConfirm' && theme.focusedInput]}
+          style={[
+            theme.input,
+            focusedInput === 'passwordConfirm' && theme.focusedInput,
+            errors?.passwordConfirm && theme.inputError
+          ]}
           placeholderTextColor={theme.colors.gray}
           placeholder="Confirm Password"
-          value={password}
+          value={passwordConfirm}
           onChangeText={val => setState('passwordConfirm', val)}
           onFocus={() => setState('focusedInput', 'passwordConfirm')}
           onBlur={() => setState('focusedInput', null)}
           secureTextEntry
         />
         <Button
-          title={isPending ? 'Signing up...' : 'Sign Up'}
+          title={signupMutation.isPending ? 'Signing up...' : 'Sign Up'}
           onPress={handleSignup}
+          disabled={signupMutation.isPending}
         />
       </View>
     </View>
@@ -111,5 +119,10 @@ const styles = StyleSheet.create({
   },
   form: {
     marginTop: theme.spacing.medium,
+  },
+  error: {
+    color: theme.colors.error,
+    marginBottom: theme.spacing.small,
+    alignItems: 'center'
   }
 })
