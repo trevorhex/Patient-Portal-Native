@@ -34,6 +34,10 @@ export default {
       borderColor: colors.secondary,
       borderWidth: 2
     },
+    inputError: {
+      borderColor: colors.error,
+      borderWidth: 2
+    },
     button: {
       backgroundColor: colors.primary,
       height: 50,

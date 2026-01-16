@@ -9,7 +9,7 @@ export const colors = {
   background: '#18181b', // 900
   backgroundDark: '#121212',
   text: '#fff',
-  delete: '#ff3b30'
+  error: '#ff6467'
 }
 
 export const fontSizes = {

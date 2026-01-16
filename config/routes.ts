@@ -23,3 +23,11 @@ export const ROUTES: Routes = {
     new: '/newIssue'
   }
 }
+
+interface APIRoutes {
+  auth: string
+}
+
+export const API_ROUTES: APIRoutes = {
+  auth: '/auth'
+}

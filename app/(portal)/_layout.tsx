@@ -1,23 +1,21 @@
 import { Redirect, Tabs, router } from 'expo-router'
 import { Alert } from 'react-native'
-import { useShallow } from 'zustand/react/shallow'
 import { Home, ScanHeart, List, Settings, LogOut, PlusIcon } from 'lucide-react-native'
 import theme from '@/theme'
 import { ROUTES } from '@/config/routes'
-import { useUserStore } from '@/stores/user'
+import { useSessionStore } from '@/stores/session'
 import { IconButton } from '@/components/IconButton'
+import { useLogout } from '@/services/session'
 
 export default function PortalLayout() {
-  const { authToken, setAuthToken } = useUserStore(useShallow(store => ({
-    authToken: store.authToken,
-    setAuthToken: store.setAuthToken
-  })))
-  if (!authToken) return <Redirect href={ROUTES.auth} />
+  const logoutMutation = useLogout()
+  const isAuthenticated = useSessionStore(store => store.isAuthenticated)
+  if (!isAuthenticated) return <Redirect href={ROUTES.auth} />
 
   const handleLogout = () => {
     Alert.alert('Log Out', 'Are you sure you want to log out?', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Log Out', style: 'destructive', onPress: () => setAuthToken(null) }
+      { text: 'Log Out', style: 'destructive', onPress: () => logoutMutation.mutate() }
     ])
   }
 
