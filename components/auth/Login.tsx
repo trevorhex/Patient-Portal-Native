@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   },
   form: {
     marginTop: theme.spacing.medium,
+    gap: theme.spacing.small
   },
   error: {
     color: theme.colors.error,
