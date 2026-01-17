@@ -20,19 +20,28 @@ export default {
       textAlign: 'center'
     },
     input: {
-      height: 50,
+      minHeight: 50,
       borderColor: colors.border,
       borderWidth: 1,
       borderRadius: 6,
       paddingHorizontal: spacing.small,
-      marginBottom: spacing.small,
+      paddingVertical: 10,
       color: colors.text,
       fontSize: fontSizes.medium,
       backgroundColor: colors.backgroundLight
     },
+    textarea: {
+      minHeight: 136
+    },
     focusedInput: {
       borderColor: colors.secondary,
       borderWidth: 2
+    },
+    inputLabel: {
+      color: colors.text,
+      fontWeight: 'bold',
+      marginBottom: 8,
+      fontSize: fontSizes.medium
     },
     inputError: {
       borderColor: colors.error,
@@ -43,7 +52,16 @@ export default {
       height: 50,
       borderRadius: 6,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      paddingHorizontal: 16
+    },
+    buttonSecondary: {
+      backgroundColor: colors.secondary
+    },
+    buttonOutlined: {
+      backgroundColor: 'transparent',
+      borderWidth: 2,
+      borderColor: colors.text
     },
     buttonDisabled: {
       backgroundColor: colors.gray
