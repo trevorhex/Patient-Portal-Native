@@ -1,9 +1,12 @@
-import { StyleSheet, TextInput, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button } from '@/components/Button'
 import { useRouter } from 'expo-router'
 import { useState, useRef, useEffect } from 'react'
 import { useCreateIssue } from '@/services/issues'
 import { issueStatus, issuePriority } from '@/types/issue'
+import { Input } from '@/components/form/Input'
+import { Textarea } from '@/components/form/Textarea'
+import { Select } from '@/components/form/Select'
 import theme from '@/theme'
 
 type StateValue = string | null | Record<string, string[]>
@@ -45,41 +48,48 @@ export const IssueForm = () => {
 
   return (
     <View style={styles.form}>
-      <View>
-        <Text style={theme.inputLabel}>Title</Text>
-        <TextInput
-          placeholder="Issue Title"
-          style={[
-            theme.input,
-            focusedInput === 'title' && theme.focusedInput,
-            errors?.title && theme.inputError
-          ]}
-          value={values.title}
-          placeholderTextColor={theme.colors.gray}
-          onChangeText={val => setState('title', val)}
-          onFocus={() => setState('focusedInput', 'title')}
-          onBlur={() => setState('focusedInput', null)}
-        />
-      </View>
-      <View>
-        <Text style={theme.inputLabel}>Description</Text>
-        <TextInput
-          placeholder="Issue Description"
-          multiline
-          numberOfLines={5}
-          style={[
-            theme.input,
-            theme.textarea,
-            focusedInput === 'description' && theme.focusedInput,
-            errors?.description && theme.inputError
-          ]}
-          value={values.description}
-          placeholderTextColor={theme.colors.gray}
-          onChangeText={val => setState('description', val)}
-          onFocus={() => setState('focusedInput', 'description')}
-          onBlur={() => setState('focusedInput', null)}
-        />  
-      </View>
+      <Input
+        label="Title"
+        placeholder="Issue Title"
+        value={values.title}
+        error={!!errors?.title}
+        onChangeText={(val) => setState('title', val)}
+        onFocus={() => setState('focusedInput', 'title')}
+        onBlur={() => setState('focusedInput', null)}
+        focused={focusedInput === 'title'}
+      />
+      <Textarea
+        label="Description"
+        placeholder="Issue Description"
+        value={values.description}
+        error={!!errors?.description}
+        onChangeText={(val) => setState('description', val)}
+        onFocus={() => setState('focusedInput', 'description')}
+        onBlur={() => setState('focusedInput', null)}
+        focused={focusedInput === 'description'}
+      />
+      <Select
+        label="Status"
+        value={values.status}
+        options={issueStatus.map(status => ({
+          label: status.replace('_', ' '),
+          value: status
+        }))}
+        focused={focusedInput === 'status'}
+        error={!!errors?.status}
+        onChange={(val) => setState('status', val)}
+      />
+      <Select
+        label="Priority"
+        value={values.priority}
+        options={issuePriority.map(priority => ({
+          label: priority.replace('_', ' '),
+          value: priority
+        }))}
+        focused={focusedInput === 'priority'}
+        error={!!errors?.priority}
+        onChange={(val) => setState('priority', val)}
+      />
       <Button
         title={createIssueMutation.isPending ? 'Creating...' : 'Create Issue'}
         onPress={handleCreateIssue}

@@ -1,6 +1,7 @@
 import { router } from 'expo-router'
-import { StyleSheet, View, Text, TextInput, Alert } from 'react-native'
+import { StyleSheet, View, Text, Alert } from 'react-native'
 import { useState } from 'react'
+import { Input } from '@/components/form/Input'
 import { Button } from '@/components/Button'
 import { useLogin } from '@/services/session'
 import { ROUTES } from '@/config/routes'
@@ -48,33 +49,27 @@ export const Login = () => {
             ))}
           </View>
         )}
-        <TextInput
-          style={[
-            theme.input,
-            focusedInput === 'email' && theme.focusedInput,
-            errors?.email && theme.inputError
-          ]}
-          placeholderTextColor={theme.colors.gray}
+        <Input
+          label="Email"
           placeholder="Email"
           value={email}
-          onChangeText={val => setState('email', val)}
+          error={!!errors?.email}
+          onChangeText={(val) => setState('email', val)}
           onFocus={() => setState('focusedInput', 'email')}
           onBlur={() => setState('focusedInput', null)}
+          focused={focusedInput === 'email'}
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        <TextInput
-          style={[
-            theme.input,
-            focusedInput === 'password' && theme.focusedInput,
-            errors?.password && theme.inputError
-          ]}
-          placeholderTextColor={theme.colors.gray}
+        <Input
+          label="Password"
           placeholder="Password"
+          value={password}
+          error={!!errors?.password}
+          onChangeText={(val) => setState('password', val)}
           onFocus={() => setState('focusedInput', 'password')}
           onBlur={() => setState('focusedInput', null)}
-          value={password}
-          onChangeText={val => setState('password', val)}
+          focused={focusedInput === 'password'}
           secureTextEntry
         />
         <Button
