@@ -6,7 +6,7 @@ import theme from '@/theme'
 export default function NewIssueScreen() {
   return (
     <KeyboardAwareScrollView
-      style={[styles.scrollView, { backgroundColor: theme.colors.backgroundDark }]}
+      style={styles.scrollView}
       contentContainerStyle={styles.container}
       keyboardShouldPersistTaps="handled"
       enableOnAndroid
@@ -19,7 +19,8 @@ export default function NewIssueScreen() {
 
 const styles = StyleSheet.create({
   scrollView: {
-    flex: 1
+    flex: 1,
+    backgroundColor: theme.colors.backgroundDark
   },
   container: {
     flexGrow: 1,
