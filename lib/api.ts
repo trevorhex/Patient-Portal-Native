@@ -31,12 +31,11 @@ export const useQuery = <TData = any>(
         headers
       })
 
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`)
-
       return response.json()
     },
     refetchOnWindowFocus: false,
     refetchOnMount: false,
+    staleTime: 5 * 60 * 1000,
     ...options
   })
 }
@@ -72,8 +71,6 @@ export const useMutation = <TData = any, TVariables = any>(
         headers,
         body
       })
-
-      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`)
 
       return response.json()
     },
