@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { useRouter } from 'expo-router'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { useState, useRef, useEffect } from 'react'
 import { IssueForm } from '@/components/issues/IssueForm'
 import { Button } from '@/components/Button'
@@ -25,11 +25,13 @@ export default function NewIssueScreen() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Create New Issue</Text>
-      <IssueForm />
-      <View style={styles.buttons}>
-        <Button title="Cancel" onPress={router.back} variant="outlined" disabled={isPending} />
-        <Button title={isPending ? 'Creating...' : 'Create Issue'} onPress={handleCreateIssue} disabled={isPending} />
+      <View style={styles.form}>
+        <IssueForm />
+        <Button
+          title={isPending ? 'Creating...' : 'Create Issue'}
+          onPress={handleCreateIssue}
+          disabled={isPending}
+        />
       </View>
       <StatusBar style="light" />
     </View>
@@ -39,13 +41,9 @@ export default function NewIssueScreen() {
 const styles = StyleSheet.create({
   container: {
     ...theme.container,
-    paddingVertical: theme.spacing.large,
-    justifyContent: 'space-between'
+    gap: theme.spacing.medium
   },
-  text: theme.title,
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: theme.spacing.small
+  form: {
+    gap: theme.spacing.small / 2
   }
 })
