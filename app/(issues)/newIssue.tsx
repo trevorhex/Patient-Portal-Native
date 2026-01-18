@@ -6,9 +6,11 @@ import theme from '@/theme'
 export default function NewIssueScreen() {
   return (
     <KeyboardAwareScrollView
-      style={{ backgroundColor: theme.colors.backgroundDark }}
+      style={[styles.scrollView, { backgroundColor: theme.colors.backgroundDark }]}
       contentContainerStyle={styles.container}
       keyboardShouldPersistTaps="handled"
+      enableOnAndroid
+      showsVerticalScrollIndicator={false}
     >
       <IssueForm />
     </KeyboardAwareScrollView>
@@ -16,9 +18,12 @@ export default function NewIssueScreen() {
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1
+  },
   container: {
-    ...theme.container,
-    justifyContent: 'flex-start',
-    paddingTop: 100
+    flexGrow: 1,
+    padding: theme.spacing.small,
+    paddingVertical: 100
   }
 })
