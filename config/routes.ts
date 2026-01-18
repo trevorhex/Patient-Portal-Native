@@ -26,8 +26,10 @@ export const ROUTES: Routes = {
 
 interface APIRoutes {
   auth: string
+  issues: string
 }
 
 export const API_ROUTES: APIRoutes = {
-  auth: '/auth'
+  auth: '/auth',
+  issues: '/issues'
 }
