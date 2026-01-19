@@ -20,7 +20,7 @@ export const IssueListItem = ({ item }: IssueListItemProps) => {
       <View style={styles.chips}>
         <View style={styles.chipContainer}>
           <Text style={styles.label}>Status:</Text>
-          <Chip status={item.status}>{item.status}</Chip>
+          <Chip status={item.status}>{item.status.replace('_', ' ')}</Chip>
         </View>
         <View style={styles.chipContainer}>
           <Text style={styles.label}>Priority:</Text>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   chips: {
     gap: theme.spacing.small,
-    width: '30%'
+    width: '35%'
   },
   chipContainer: {
     alignItems: 'center',

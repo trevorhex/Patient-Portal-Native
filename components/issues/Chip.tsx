@@ -13,7 +13,7 @@ export const Chip = ({ children, status, priority }: ChipProps) => {
   return (
     <Text style={[
       styles.chip,
-      status && styles[statusVariants[status.replace(' ', '_') as Status]],
+      status && styles[statusVariants[status]],
       priority && styles[priorityVariants[priority]]
     ]}>{children}</Text>
   )
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 12
+    borderRadius: 12,
+    textTransform: 'capitalize'
   },
   default: {
     backgroundColor: theme.colors.primary900,
