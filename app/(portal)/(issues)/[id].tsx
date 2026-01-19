@@ -4,7 +4,7 @@ import { useGetIssue } from '@/services/issues'
 import { Chip } from '@/components/issues/Chip'
 import theme from '@/theme'
 
-export default function ViewIssueScreen() {
+export default function IssueDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>()
   const { data, isLoading, error } = useGetIssue(id!)
 
