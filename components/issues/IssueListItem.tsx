@@ -1,6 +1,8 @@
+import { useRouter } from 'expo-router'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Issue } from '@/types/issue'
 import { Chip } from './Chip'
+import { ROUTES } from '@/config/routes'
 import theme from '@/theme'
 
 export interface IssueListItemProps {
@@ -8,11 +10,10 @@ export interface IssueListItemProps {
 }
 
 export const IssueListItem = ({ item }: IssueListItemProps) => {
-  const handlePress = () => {
-    console.log('Pressed issue:', item.id)
-  }
+  const router = useRouter()
+  const handlePress = () => router.push(ROUTES.issues.view(item.id))
   return (
-    <TouchableOpacity style={styles.card} onPress={handlePress} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.card} onPress={handlePress} activeOpacity={0.7}>
       <View style={{ flex: 1 }}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     ...theme.card,
     flexDirection: 'row',
     gap: 4,
-    marginBottom: theme.spacing.small
+    marginBottom: theme.spacing.xsmall
   },
   title: {
     color: theme.colors.text,

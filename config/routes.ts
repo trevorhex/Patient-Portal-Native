@@ -1,3 +1,4 @@
+
 interface Routes {
   auth: string
   dashboard: string
@@ -8,6 +9,7 @@ interface Routes {
   issues: {
     base: string
     new: string
+    view: (id: string) => string
   }
 }
 
@@ -20,7 +22,8 @@ export const ROUTES: Routes = {
   },
   issues: {
     base: '/issues',
-    new: '/newIssue'
+    new: '/newIssue',
+    view: (id: string) => `/(issues)/${id}`
   }
 }
 

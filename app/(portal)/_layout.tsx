@@ -1,6 +1,6 @@
-import { Redirect, Tabs, router } from 'expo-router'
+import { Redirect, Tabs } from 'expo-router'
 import { Alert } from 'react-native'
-import { Home, ScanHeart, List, Settings, LogOut, PlusIcon } from 'lucide-react-native'
+import { Home, ScanHeart, List, Settings, LogOut } from 'lucide-react-native'
 import theme from '@/theme'
 import { ROUTES } from '@/config/routes'
 import { useSessionStore } from '@/stores/session'
@@ -29,14 +29,9 @@ export default function PortalLayout() {
           borderTopWidth: 1,
           paddingTop: 4,
         },
-        headerStyle: {
-          backgroundColor: theme.colors.background,
-          borderBottomColor: theme.colors.border700,
-          borderBottomWidth: 1
-        },
-        headerTitleStyle: {
-          color: theme.colors.text,
-        }
+        headerStyle: { backgroundColor: theme.colors.background },
+        headerShadowVisible: true,
+        headerTitleStyle: { color: theme.colors.text }
       }}
     >
       <Tabs.Screen name="index" options={{
@@ -51,16 +46,12 @@ export default function PortalLayout() {
         title: 'Patient Profile',
         tabBarIcon: (props) => <ScanHeart {...props} />
       }} />
-      <Tabs.Screen name="issues" options={{
+      <Tabs.Screen name="(issues)" options={{
         tabBarAccessibilityLabel: 'Issues',
         tabBarShowLabel: false,
         title: 'Issues',
         tabBarIcon: (props) => <List {...props} />,
-        headerRight: () => <IconButton
-          onPress={() => router.push(ROUTES.issues.new)}
-          accessibilityLabel="Add New Issue"
-          Icon={PlusIcon}
-        />
+        headerShown: false
       }} />
       <Tabs.Screen name="account" options={{
         tabBarAccessibilityLabel: 'Account',
