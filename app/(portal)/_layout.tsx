@@ -25,13 +25,13 @@ export default function PortalLayout() {
         tabBarActiveTintColor: theme.colors.secondary,
         tabBarStyle: {
           backgroundColor: theme.colors.background,
-          borderTopColor: theme.colors.borderDark,
+          borderTopColor: theme.colors.border700,
           borderTopWidth: 1,
           paddingTop: 4,
         },
         headerStyle: {
           backgroundColor: theme.colors.background,
-          borderBottomColor: theme.colors.borderDark,
+          borderBottomColor: theme.colors.border700,
           borderBottomWidth: 1
         },
         headerTitleStyle: {

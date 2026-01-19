@@ -28,7 +28,7 @@ export default {
       paddingVertical: 10,
       color: colors.text,
       fontSize: fontSizes.medium,
-      backgroundColor: colors.backgroundLight
+      backgroundColor: colors.background800
     },
     textarea: {
       minHeight: 136
@@ -76,7 +76,7 @@ export default {
     card: {
       backgroundColor: colors.background,
       borderWidth: 1,
-      borderColor: colors.borderDark,
+      borderColor: colors.border700,
       borderRadius: 8,
       padding: spacing.small
     }
