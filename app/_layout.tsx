@@ -13,16 +13,15 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false, animation: 'none' }}>
         <Stack.Screen name="auth" />
         <Stack.Screen name="(portal)" />
-        <Stack.Screen name="(issues)/newIssue" options={{
+        <Stack.Screen name="(issues)/issueForm" options={{
           presentation: 'modal',
-          title: 'New Issue',
           animation: 'slide_from_bottom',
           headerShown: true,
           headerTransparent: true,
           headerTintColor: '#fff',
           headerRight: () => <IconButton
             onPress={router.back}
-            accessibilityLabel="Add New Issue"
+            accessibilityLabel="Back"
             Icon={XIcon}
           />,
         }} />

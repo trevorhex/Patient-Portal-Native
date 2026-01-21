@@ -9,6 +9,7 @@ interface Routes {
   issues: {
     base: string
     new: string
+    edit: (id: string) => string
     view: (id: string) => string
   }
 }
@@ -22,7 +23,8 @@ export const ROUTES: Routes = {
   },
   issues: {
     base: '/issues',
-    new: '/newIssue',
+    new: '/issueForm?mode=create',
+    edit: (id: string) => `/issueForm?mode=edit&id=${id}`,
     view: (id: string) => `/(issues)/${id}`
   }
 }
