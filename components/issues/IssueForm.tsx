@@ -11,7 +11,12 @@ import theme from '@/theme'
 
 type StateValue = string | null | Record<string, string[]>
 
-export const IssueForm = () => {
+export interface IssueFormProps {
+  issueId?: string
+  mode: 'create' | 'edit'
+}
+
+export const IssueForm = (props: IssueFormProps) => {
   const router = useRouter()
   const isMounted = useRef(true)
 

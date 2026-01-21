@@ -1,12 +1,28 @@
+import { useLayoutEffect } from 'react'
 import { View, ScrollView, Text, StyleSheet, ActivityIndicator } from 'react-native'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router'
+import { PencilIcon } from 'lucide-react-native'
 import { useGetIssue } from '@/services/issues'
 import { Chip } from '@/components/issues/Chip'
+import { IconButton } from '@/components/IconButton'
+import { ROUTES } from '@/config/routes'
 import theme from '@/theme'
 
 export default function IssueDetailsScreen() {
+  const navigation = useNavigation()
+  const router = useRouter()
   const { id } = useLocalSearchParams<{ id: string }>()
-  const { data, isLoading, error } = useGetIssue(id!)
+  const { data, isLoading, error } = useGetIssue(id)
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <IconButton
+        onPress={() => router.push(ROUTES.issues.edit(id))}
+        accessibilityLabel="Edit Issue"
+        Icon={PencilIcon}
+      />
+    })
+  }, [id, navigation, router])
 
   if (isLoading) {
     return (
